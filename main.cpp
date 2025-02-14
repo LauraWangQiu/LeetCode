@@ -8,6 +8,7 @@ using namespace std;
 //#define _1071
 //#define _1431
 //#define _605
+//#define _345
 
 #pragma region 1768. Merge Strings Alternately
 /*
@@ -73,9 +74,12 @@ string mergeAlternately(string word1, string word2) {
 
 #ifdef _1768
 int main(int argc, char** argv) {
-	string word1, word2;
-	cin >> word1 >> word2;
-	cout << mergeAlternately(word1, word2);
+    while (true) {
+        string word1, word2;
+        cin >> word1 >> word2;
+        cout << mergeAlternately(word1, word2);
+    }
+    return 0;
 }
 #endif
 #pragma endregion
@@ -126,9 +130,12 @@ string gcdOfStrings(string str1, string str2) {
 
 #ifdef _1071
 int main(int argc, char** argv) {
-    string str1, str2;
-    cin >> str1 >> str2;
-    cout << gcdOfStrings(str1, str2);
+    while (true) {
+        string str1, str2;
+        cin >> str1 >> str2;
+        cout << gcdOfStrings(str1, str2);
+    }
+    return 0;
 }
 #endif
 #pragma endregion
@@ -191,15 +198,17 @@ vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {
 
 #ifdef _1431
 int main(int argc, char** argv) {
-    int n; cin >> n;
-    vector<int> candies(n);
-    for (int& c : candies) cin >> c;
-    int extraCandies; cin >> extraCandies;
-    vector<bool> result = kidsWithCandies(candies, extraCandies);
-    cout << "[ " << BOOL_STR(result[0]);
-    for (int i = 1; i < result.size(); ++i)
-        cout << ", " << BOOL_STR(result[i]);
-    cout << " ]\n";
+    while (true) {
+        int n; cin >> n;
+        vector<int> candies(n);
+        for (int& c : candies) cin >> c;
+        int extraCandies; cin >> extraCandies;
+        vector<bool> result = kidsWithCandies(candies, extraCandies);
+        cout << "[ " << BOOL_STR(result[0]);
+        for (int i = 1; i < result.size(); ++i)
+            cout << ", " << BOOL_STR(result[i]);
+        cout << " ]\n";
+    }
     return 0;
 }
 #endif
@@ -247,11 +256,72 @@ bool canPlaceFlowers(vector<int>& flowerbed, int n) {
 
 #ifdef _605
 int main(int argc, char** argv) {
-    int f; cin >> f;
-    vector<int> flowerbed(f);
-    for (int& e : flowerbed) cin >> e;
-    int n; cin >> n;
-    cout << ((canPlaceFlowers(flowerbed, n)) ? "true" : "false") << '\n';
+    while (true) {
+        int f; cin >> f;
+        vector<int> flowerbed(f);
+        for (int& e : flowerbed) cin >> e;
+        int n; cin >> n;
+        cout << ((canPlaceFlowers(flowerbed, n)) ? "true" : "false") << '\n';
+    }
+    return 0;
+}
+#endif
+#pragma endregion
+
+#pragma region 345. Reverse vowels of a string
+/*
+* Given a string s, reverse only all the vowels in the string and return it.
+* 
+* The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+* 
+* Example 1:
+* 
+* Input: s = "IceCreAm"
+* 
+* Output: "AceCreIm"
+* 
+* Explanation:
+* 
+* The vowels in s are ['I', 'e', 'e', 'A']. On reversing the vowels, s becomes "AceCreIm".
+* 
+* Example 2:
+* 
+* Input: s = "leetcode"
+* 
+* Output: "leotcede"
+* 
+* Constraints:
+* 
+*     1 <= s.length <= 3 * 105
+*     s consist of printable ASCII characters.
+*/
+
+bool isVowel(char ch) {
+    ch = tolower(ch);
+    return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+}
+
+// Time complexity: O(n), n = length of the string
+// Space complexity: O(1)
+string reverseVowels(string s) {
+    int i = 0, j = s.size() - 1;
+    while (i < j) {
+        if (isVowel(s[i]) && isVowel(s[j])) {
+            swap(s[i], s[j]);
+            ++i; --j;
+        }
+        else if (!isVowel(s[i])) ++i;
+        else --j;
+    }
+    return s;
+}
+
+#ifdef _345
+int main(int argc, char** argv) {
+    while (true) {
+        string input; cin >> input;
+        cout << reverseVowels(input) << '\n';
+    }
     return 0;
 }
 #endif
