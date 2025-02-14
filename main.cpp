@@ -9,6 +9,7 @@ using namespace std;
 //#define _1431
 //#define _605
 //#define _345
+//#define _151
 
 #pragma region 1768. Merge Strings Alternately
 /*
@@ -321,6 +322,93 @@ int main(int argc, char** argv) {
     while (true) {
         string input; cin >> input;
         cout << reverseVowels(input) << '\n';
+    }
+    return 0;
+}
+#endif
+#pragma endregion
+
+#pragma region 151. Reverse Words in a String
+/**
+* Given an input string s, reverse the order of the words.
+* 
+* A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+* 
+* Return a string of the words in reverse order concatenated by a single space.
+* 
+* Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+* 
+* Example 1:
+* 
+* Input: s = "the sky is blue"
+* Output: "blue is sky the"
+* 
+* Example 2:
+* 
+* Input: s = "  hello world  "
+* Output: "world hello"
+* Explanation: Your reversed string should not contain leading or trailing spaces.
+* 
+* Example 3:
+* 
+* Input: s = "a good   example"
+* Output: "example good a"
+* Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
+* 
+* Constraints:
+* 
+*     1 <= s.length <= 104
+*     s contains English letters (upper-case and lower-case), digits, and spaces ' '.
+*     There is at least one word in s.
+*/
+
+// Time complexity: O(n), n = length of string
+// Space complexity: O(n), n = length of string
+string reverseWords(string s) {
+    /*if (s.size() == 1) return s;
+
+    int i = 0, j = s.size() - 1, answerIdx = 0;
+    string answer = "", left = "", right = "";
+    while (i < j) {
+        while (i < s.size() - 1 && s[i] == ' ') i++;
+        while (j >= 1 && s[j] == ' ') j--;
+        if (i > j) return answer;
+        while (i < s.size() && s[i] != ' ') {
+            left += s[i]; i++;
+        }
+        while (i < j && s[j] != ' ') {
+            right.insert(0, string(1, s[j])); j--;
+        }
+        if (!right.empty()) {
+            answer.insert(answerIdx, right + " ");
+            answerIdx += right.size() + 1;
+        }
+        if (!left.empty())
+            answer.insert(answerIdx, (((answerIdx - (int(right.size()) + 1)) <= 0) ? left : left + " "));
+        left.clear(); right.clear();
+    }
+    return answer;*/
+
+    reverse(s.begin(), s.end());
+    string ans = "";
+
+    for (int i = 0; i < s.length(); ++i) {
+        string word = "";
+        while (i < s.length() && s[i] != ' ')
+            word += s[i++];
+        reverse(word.begin(), word.end());
+        if (word.length() > 0)
+            ans += " " + word;
+    }
+
+    return ans.substr(1); // eliminate the first space
+}
+
+#ifdef _151
+int main(int argc, char** argv) {
+    while (true) {
+        string input; getline(cin, input);
+        cout << reverseWords(input) << '\n';
     }
     return 0;
 }
