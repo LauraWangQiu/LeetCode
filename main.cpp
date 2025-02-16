@@ -13,6 +13,7 @@ using namespace std;
 //#define _238
 //#define _334
 //#define _443
+//#define _283
 
 #pragma region 1768. Merge Strings Alternately
 /*
@@ -604,6 +605,69 @@ int main(int argc, char** argv) {
         cout << compressed << "\n[ " << chars[0];
         for (int i = 1; i < compressed; ++i)
             cout << ", " << chars[i];
+        cout << " ]\n";
+    }
+    return 0;
+}
+#endif
+#pragma endregion
+
+#pragma region 283. Move Zeroes
+/*
+* Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+* 
+* Note that you must do this in-place without making a copy of the array.
+* 
+* Example 1:
+* 
+* Input: nums = [0,1,0,3,12]
+* Output: [1,3,12,0,0]
+* 
+* Example 2:
+* 
+* Input: nums = [0]
+* Output: [0]
+* 
+* Constraints:
+* 
+*     1 <= nums.length <= 104
+*     -231 <= nums[i] <= 231 - 1
+*  
+* Follow up: Could you minimize the total number of operations done?
+*/
+
+// Time complexity: O(n), n = length of nums array
+// Space complexity: O(1)
+void moveZeroes(vector<int>& nums) {
+    /*int lastZeroIdx = 0;
+    for (int i = 0; i < nums.size();) {
+        if (lastZeroIdx >= 0 && !nums[lastZeroIdx] && nums[i])
+            swap(nums[i], nums[lastZeroIdx++]);
+        else {
+            if (nums[lastZeroIdx]) ++lastZeroIdx;
+            ++i;
+        }
+    }*/
+
+    int left = 0;
+    for (int right = 0; right < nums.size(); ++right) {
+        if (nums[right]) {
+            swap(nums[left], nums[right]);
+            ++left;
+        }
+    }
+}
+
+#ifdef _283
+int main(int argc, char** argv) {
+    while (true) {
+        int n; cin >> n;
+        vector<int> nums(n);
+        for (int& e : nums) cin >> e;
+        moveZeroes(nums);
+        cout << "[ " << nums[0];
+        for (int i = 1; i < nums.size(); ++i)
+            cout << ", " << nums[i];
         cout << " ]\n";
     }
     return 0;
