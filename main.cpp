@@ -14,6 +14,7 @@ using namespace std;
 //#define _334
 //#define _443
 //#define _283
+//#define _392
 
 #pragma region 1768. Merge Strings Alternately
 /*
@@ -669,6 +670,53 @@ int main(int argc, char** argv) {
         for (int i = 1; i < nums.size(); ++i)
             cout << ", " << nums[i];
         cout << " ]\n";
+    }
+    return 0;
+}
+#endif
+#pragma endregion
+
+#pragma region 392. Is Subsequence
+/*
+* Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+* 
+* A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+* 
+* Example 1:
+* 
+* Input: s = "abc", t = "ahbgdc"
+* Output: true
+* 
+* Example 2:
+* 
+* Input: s = "axc", t = "ahbgdc"
+* Output: false
+* 
+* Constraints:
+* 
+*     0 <= s.length <= 100
+*     0 <= t.length <= 104
+*     s and t consist only of lowercase English letters.
+* 
+*  
+* Follow up: Suppose there are lots of incoming s, say s1, s2, ..., sk where k >= 109, and you want to check one by one to see if t has its subsequence. In this scenario, how would you change your code?
+*/
+
+// Time complexity: O(n), n = longer length of s string or t string
+// Space complexity: O(1)
+bool isSubsequence(string s, string t) {
+    int sIdx = 0;
+    for (int tIdx = 0; tIdx < t.size() && sIdx < s.size(); ++tIdx)
+        if (s[sIdx] == t[tIdx])
+            sIdx++;
+    return sIdx == s.size();
+}
+
+#ifdef _392
+int main(int argc, char** argv) {
+    while (true) {
+        string s, t; cin >> s >> t;
+        cout << ((isSubsequence(s, t) ? "true" : "false")) << '\n';
     }
     return 0;
 }
