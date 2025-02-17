@@ -2,6 +2,7 @@
 #include <string>
 #include <numeric>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 //#define _1768
@@ -16,6 +17,7 @@ using namespace std;
 //#define _283
 //#define _392
 //#define _11
+//#define _1679
 
 #pragma region 1768. Merge Strings Alternately
 /*
@@ -239,7 +241,7 @@ int main(int argc, char** argv) {
 * 
 * Constraints:
 * 
-*     1 <= flowerbed.length <= 2 * 104
+*     1 <= flowerbed.length <= 2 * 10^4
 *     flowerbed[i] is 0 or 1.
 *     There are no two adjacent flowers in flowerbed.
 *     0 <= n <= flowerbed.length
@@ -299,7 +301,7 @@ int main(int argc, char** argv) {
 * 
 * Constraints:
 * 
-*     1 <= s.length <= 3 * 105
+*     1 <= s.length <= 3 * 10^5
 *     s consist of printable ASCII characters.
 */
 
@@ -363,7 +365,7 @@ int main(int argc, char** argv) {
 * 
 * Constraints:
 * 
-*     1 <= s.length <= 104
+*     1 <= s.length <= 10^4
 *     s contains English letters (upper-case and lower-case), digits, and spaces ' '.
 *     There is at least one word in s.
 */
@@ -441,7 +443,7 @@ int main(int argc, char** argv) {
 * 
 * Constraints:
 * 
-*     2 <= nums.length <= 105
+*     2 <= nums.length <= 10^5
 *     -30 <= nums[i] <= 30
 *     The input is generated such that answer[i] is guaranteed to fit in a 32-bit integer.
 * 
@@ -510,7 +512,7 @@ int main(int argc, char** argv) {
 * 
 * Constraints:
 * 
-*     1 <= nums.length <= 5 * 105
+*     1 <= nums.length <= 5 * 10^5
 *     -231 <= nums[i] <= 231 - 1
 * 
 * Follow up: Could you implement a solution that runs in O(n) time complexity and O(1) space complexity?
@@ -632,7 +634,7 @@ int main(int argc, char** argv) {
 * 
 * Constraints:
 * 
-*     1 <= nums.length <= 104
+*     1 <= nums.length <= 10^4
 *     -231 <= nums[i] <= 231 - 1
 *  
 * Follow up: Could you minimize the total number of operations done?
@@ -696,7 +698,7 @@ int main(int argc, char** argv) {
 * Constraints:
 * 
 *     0 <= s.length <= 100
-*     0 <= t.length <= 104
+*     0 <= t.length <= 10^4
 *     s and t consist only of lowercase English letters.
 * 
 *  
@@ -750,8 +752,8 @@ int main(int argc, char** argv) {
 * Constraints:
 * 
 *     n == height.length
-*     2 <= n <= 105
-*     0 <= height[i] <= 104
+*     2 <= n <= 10^5
+*     0 <= height[i] <= 10^4
 * 
 */
 
@@ -774,6 +776,72 @@ int main(int argc, char** argv) {
         vector<int> height(n);
         for (int& e : height) cin >> e;
         cout << maxArea(height) << '\n';
+    }
+    return 0;
+}
+#endif
+#pragma endregion
+
+#pragma region 1679. Max Number of K-Sum Pairs
+/*
+* You are given an integer array nums and an integer k.
+* 
+* In one operation, you can pick two numbers from the array whose sum equals k and remove them from the array.
+* 
+* Return the maximum number of operations you can perform on the array.
+* 
+* Example 1:
+* 
+* Input: nums = [1,2,3,4], k = 5
+* Output: 2
+* Explanation: Starting with nums = [1,2,3,4]:
+* - Remove numbers 1 and 4, then nums = [2,3]
+* - Remove numbers 2 and 3, then nums = []
+* There are no more pairs that sum up to 5, hence a total of 2 operations.
+* 
+* Example 2:
+* 
+* Input: nums = [3,1,3,4,3], k = 6
+* Output: 1
+* Explanation: Starting with nums = [3,1,3,4,3]:
+* - Remove the first two 3's, then nums = [1,4,3]
+* There are no more pairs that sum up to 6, hence a total of 1 operation.
+* 
+* Constraints:
+* 
+*     1 <= nums.length <= 10^5
+*     1 <= nums[i] <= 10^9
+*     1 <= k <= 10^9
+* 
+*/
+
+// Time complexity: O(n*log(n)), n = length of nums array
+// Space complexity: O(1)
+int maxOperations(vector<int>& nums, int k) {
+    sort(nums.begin(), nums.end()); // O(N * log(N))
+
+    int left = 0, right = nums.size() - 1, numOperations = 0;
+    while (left < right) {
+        if (nums[left] + nums[right] == k) {
+            ++numOperations;
+            ++left;
+            --right;
+        } else if (nums[left] + nums[right] > k)
+            --right;
+        else //if (nums[left] + nums[right] < k)
+            ++left;
+    }
+    return numOperations;
+}
+
+#ifdef _1679
+int main(int argc, char** argv) {
+    while (true) {
+        int n; cin >> n;
+        vector<int> nums(n);
+        for (int& e : nums)cin >> e;
+        int k; cin >> k;
+        cout << maxOperations(nums, k) << '\n';
     }
     return 0;
 }
